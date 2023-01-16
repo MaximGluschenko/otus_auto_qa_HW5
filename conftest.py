@@ -5,7 +5,13 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+admin_username = "user"
+admin_password = "bitnami"
 
+USD_to_EUR_ratio = 0.7846013289036545
+USD_to_GBP_ratio = 0.6125083056478405
+
+catalog_section = ["desktops", "laptop-notebook", "tablet", "smartphone", "camera", "mp3-players"]
 
 
 def pytest_addoption(parser):
@@ -18,27 +24,10 @@ def pytest_addoption(parser):
     parser.addoption("--base_url",
                      default="http://192.168.0.74:8081")
 
+
 @pytest.fixture
-def main_url(request):
+def base_url(request):
     return request.config.getoption("--base_url")
-
-@pytest.fixture
-def admin_url(request):
-    return request.config.getoption("--base_url") + "/admin"
-
-@pytest.fixture
-def catalog_url(request):
-    return request.config.getoption("--base_url") + "/desktops"
-
-@pytest.fixture
-def registration_url(request):
-    return request.config.getoption("--base_url") + "/index.php?route=account/register"
-
-@pytest.fixture
-def item_card_url(request):
-    return request.config.getoption("--base_url") + "/tablet/samsung-galaxy-tab-10-1"
-
-
 
 
 @pytest.fixture
@@ -77,4 +66,4 @@ def browser(request):
     driver.maximize_window()
     yield driver
 
-    driver.close()
+    driver.quit()
