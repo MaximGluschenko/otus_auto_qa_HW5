@@ -1,7 +1,11 @@
+import allure
 from locators import *
 from page_objects.MainPage import MainPage
 
 
+@allure.feature('Check page elements')
+@allure.story('Main page')
+@allure.title('Check main page elements')
 def test_check_main_page_elements(browser, base_url):
     main_page = MainPage(browser)
     main_page.open(base_url)

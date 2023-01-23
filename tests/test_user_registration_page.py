@@ -1,7 +1,11 @@
+import allure
 from locators import *
 from page_objects.UserRegistrationPage import UserRegistrationPage
 
 
+@allure.feature('Check page elements')
+@allure.story('User registration page')
+@allure.title('Check user registration page elements')
 def test_check_user_reg_page_elements(browser, base_url):
     user_reg_page = UserRegistrationPage(browser)
     user_reg_page.open(base_url)
@@ -17,6 +21,9 @@ def test_check_user_reg_page_elements(browser, base_url):
     user_reg_page.element(URP_CONTINUE_BUTTON)
 
 
+@allure.feature('User cases')
+@allure.story('User registration page')
+@allure.title('User registration')
 def test_user_reg(browser, base_url):
     user_reg_page = UserRegistrationPage(browser)
     user_reg_page.open(base_url)
@@ -33,4 +40,13 @@ def test_user_reg(browser, base_url):
     user_reg_page.element(URP_CHECKBOX_AGREE).click()
     user_reg_page.element(URP_CONTINUE_BUTTON).click()
 
-    assert browser.current_url == f"{base_url}/index.php?route=account/success"
+
+    with allure.step('Check account success url'):
+        try:
+            assert browser.current_url == f"{base_url}/index.php?route=account/success"
+        except:
+            allure.attach(
+                body=browser.get_screenshot_as_png(),
+                name="screenshot_image",
+                attachment_type=allure.attachment_type.PNG)
+            raise
