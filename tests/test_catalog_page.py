@@ -1,7 +1,11 @@
+import allure
 from locators import *
 from page_objects.CatalogPage import CatalogPage
 
 
+@allure.feature('Check page elements')
+@allure.story('Catalog page')
+@allure.title('Check catalog page elements')
 def test_check_catalog_page_elements(browser, base_url):
     catalog_page = CatalogPage(browser)
     catalog_page.open(base_url)

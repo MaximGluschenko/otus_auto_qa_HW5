@@ -5,10 +5,9 @@ from page_objects.MainPage import *
 class UserRegistrationPage(MainPage):
 	endpoint = "/index.php?route=account/register"
 
-	def __init__(self, browser):
-		self.browser = browser
-
+	@allure.step("Getting fake user {data_name}")
 	def get_reg_data(self, data_name):
+		self.logger.info(f"Getting fake user {data_name}")
 		fake = Faker()
 		if data_name == "firstname":
 			self.firstname = fake.first_name()

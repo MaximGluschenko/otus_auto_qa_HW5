@@ -1,3 +1,4 @@
+import allure
 from locators import *
 from page_objects.BasePage import BasePage
 
@@ -5,18 +6,17 @@ from page_objects.BasePage import BasePage
 class MainPage(BasePage):
     endpoint = "/index.php?route=common/home"
 
-    def __init__(self, browser):
-        self.browser = browser
-
+    @allure.step("Switch currency to {currency}")
     def switch_currency_to(self, currency):
+        self.logger.info(f"Switch currency to {currency}")
 
-        self.element(MP_DROPDOWN_SWITCH_CURRENCY).click()
+        self.click(MP_DROPDOWN_SWITCH_CURRENCY)
 
         if currency == "USD":
-            self.element(MP_SWITCH_CURRENCY_USD).click()
+            self.click(MP_SWITCH_CURRENCY_USD)
 
         elif currency == "EUR":
-            self.element(MP_SWITCH_CURRENCY_EUR).click()
+            self.click(MP_SWITCH_CURRENCY_EUR)
 
         elif currency == "GBP":
-            self.element(MP_SWITCH_CURRENCY_GBP).click()
+            self.click(MP_SWITCH_CURRENCY_GBP)
